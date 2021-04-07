@@ -45,3 +45,5 @@ testem.log
 .DS_Store
 Thumbs.db
 /frontend/node_modules/
+/hero/.gradle/
+/hero/.gradle/
