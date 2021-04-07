@@ -46,4 +46,4 @@ testem.log
 Thumbs.db
 /frontend/node_modules/
 /hero/.gradle/
-/hero/.gradle/
+/hero/build/
