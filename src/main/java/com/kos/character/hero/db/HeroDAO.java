@@ -5,6 +5,7 @@ import com.kos.character.hero.model.HeroId;
 import com.kos.character.hero.model.HeroRepository;
 import com.kos.character.race.db.RaceEntity;
 import com.kos.character.race.db.RaceJpaRepository;
+import com.kos.character.race.model.Race;
 import com.kos.character.race.model.RaceId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -62,7 +63,7 @@ public class HeroDAO implements HeroRepository {
 
     private HeroEntity mapToEntity(Hero hero) {
         HeroEntity heroEntity = heroRepository.findById(hero.getHeroId().asInt()).orElseThrow(IllegalArgumentException::new);
-        RaceEntity raceEntity = raceRepository.findById(hero.getRaceId().asInt()).orElseThrow(IllegalArgumentException::new);
+        RaceEntity raceEntity = raceRepository.findById(hero.getRace().getRaceId().asInt()).orElseThrow(IllegalArgumentException::new);
         heroEntity.setLevel(hero.getLevel());
         heroEntity.setName(hero.getName());
         heroEntity.setRace(raceEntity);
@@ -74,7 +75,15 @@ public class HeroDAO implements HeroRepository {
                 HeroId.of(entity.getId()),
                 entity.getName(),
                 entity.getLevel(),
-                RaceId.of(entity.getRace().getId()));
+                this.mapToModel(entity.getRace())
+        );
+    }
+
+    private Race mapToModel(RaceEntity entity) {
+        return new Race(
+                RaceId.of(entity.getId()),
+                entity.getName()
+        );
     }
 
 }

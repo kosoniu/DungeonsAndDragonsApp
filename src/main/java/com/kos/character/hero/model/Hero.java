@@ -1,19 +1,19 @@
 package com.kos.character.hero.model;
 
-import com.kos.character.race.model.RaceId;
+import com.kos.character.race.model.Race;
 
 public class Hero {
 
     private HeroId heroId;
     private String name;
     private Integer level;
-    private RaceId raceId;
+    private Race race;
 
-    public Hero(HeroId heroId, String name, Integer level, RaceId raceId) {
+    public Hero(HeroId heroId, String name, Integer level, Race race) {
         this.heroId = heroId;
         this.name = name;
         this.level = level;
-        this.raceId = raceId;
+        this.race = race;
     }
 
     public void setHeroId(HeroId heroId) {
@@ -32,7 +32,7 @@ public class Hero {
         return level;
     }
 
-    public RaceId getRaceId() {
-        return raceId;
+    public Race getRace() {
+        return race;
     }
 }
