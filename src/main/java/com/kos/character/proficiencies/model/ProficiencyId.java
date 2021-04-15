@@ -1,4 +1,4 @@
-package com.kos.character.hero.model;
+package com.kos.character.proficiencies.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -8,16 +8,18 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class HeroId implements Serializable {
+public class ProficiencyId implements Serializable {
 
-    private static final long serialVersionUID = -4906633323154089542L;
+    private static final long serialVersionUID = 528199140873772180L;
 
     private final int value;
 
-    @JsonCreator
-    private HeroId(@JsonProperty("value") int value) { this.value = value; }
+    private ProficiencyId(int value) {
+        this.value = value;
+    }
 
-    public static HeroId of(int value) { return new HeroId(value); }
+    @JsonCreator
+    public static ProficiencyId of(@JsonProperty("value") int value) { return new ProficiencyId(value); }
 
     public int asInt() { return value; }
 
@@ -25,8 +27,8 @@ public class HeroId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HeroId heroId = (HeroId) o;
-        return value == heroId.value;
+        ProficiencyId that = (ProficiencyId) o;
+        return value == that.value;
     }
 
     @Override

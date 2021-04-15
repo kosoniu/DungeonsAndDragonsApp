@@ -14,16 +14,13 @@ public class HeroEntity {
     @NotNull
     private int id;
 
-    @Column
-    @NotNull
+    @Column(nullable = false)
     private String name;
 
-    @Column
-    @NotNull
+    @Column(nullable = false)
     private int level;
 
     @ManyToOne
-    @NotNull
     private RaceEntity race;
 
     public int getId() {

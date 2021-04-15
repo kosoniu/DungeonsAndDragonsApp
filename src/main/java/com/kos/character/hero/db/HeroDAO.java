@@ -3,10 +3,8 @@ package com.kos.character.hero.db;
 import com.kos.character.hero.model.Hero;
 import com.kos.character.hero.model.HeroId;
 import com.kos.character.hero.model.HeroRepository;
-import com.kos.character.race.db.RaceEntity;
-import com.kos.character.race.db.RaceJpaRepository;
-import com.kos.character.race.model.Race;
-import com.kos.character.race.model.RaceId;
+import com.kos.character.utils.EntityMapper;
+import com.kos.character.utils.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,13 +16,13 @@ import java.util.stream.Collectors;
 public class HeroDAO implements HeroRepository {
 
     private HeroJpaRepository heroRepository;
-    private RaceJpaRepository raceRepository;
+    private EntityMapper entityMapper;
 
 
     @Autowired
-    public HeroDAO(HeroJpaRepository heroRepository, RaceJpaRepository raceRepository) {
+    public HeroDAO(HeroJpaRepository heroRepository, EntityMapper entityMapper) {
         this.heroRepository = heroRepository;
-        this.raceRepository = raceRepository;
+        this.entityMapper = entityMapper;
     }
 
     @Override
@@ -36,12 +34,12 @@ public class HeroDAO implements HeroRepository {
 
     @Override
     public List<Hero> findAll() {
-        return heroRepository.findAll().stream().map(this::mapToModel).collect(Collectors.toList());
+        return heroRepository.findAll().stream().map(ModelMapper::mapToModel).collect(Collectors.toList());
     }
 
     @Override
     public Hero update(Hero hero) {
-        return this.mapToModel(heroRepository.save(mapToEntity(hero)));
+        return ModelMapper.mapToModel(heroRepository.save(entityMapper.mapToEntity(hero)));
     }
 
     @Override
@@ -49,41 +47,15 @@ public class HeroDAO implements HeroRepository {
         HeroEntity heroEntity = new HeroEntity();
         heroEntity.setName(hero.getName());
         heroEntity.setLevel(hero.getLevel());
-        return this.mapToModel(heroRepository.save(heroEntity));
+        return ModelMapper.mapToModel(heroRepository.save(heroEntity));
     }
 
     @Override
     public void delete(Hero hero) {
-        heroRepository.delete(mapToEntity(hero));
+        heroRepository.delete(entityMapper.mapToEntity(hero));
     }
 
     private Hero getFromDatabase(int heroId) {
-        return heroRepository.findById(heroId).map(this::mapToModel).orElse(null);
+        return heroRepository.findById(heroId).map(ModelMapper::mapToModel).orElse(null);
     }
-
-    private HeroEntity mapToEntity(Hero hero) {
-        HeroEntity heroEntity = heroRepository.findById(hero.getHeroId().asInt()).orElseThrow(IllegalArgumentException::new);
-        RaceEntity raceEntity = raceRepository.findById(hero.getRace().getRaceId().asInt()).orElseThrow(IllegalArgumentException::new);
-        heroEntity.setLevel(hero.getLevel());
-        heroEntity.setName(hero.getName());
-        heroEntity.setRace(raceEntity);
-        return heroEntity;
-    }
-
-    private Hero mapToModel(HeroEntity entity) {
-        return new Hero(
-                HeroId.of(entity.getId()),
-                entity.getName(),
-                entity.getLevel(),
-                this.mapToModel(entity.getRace())
-        );
-    }
-
-    private Race mapToModel(RaceEntity entity) {
-        return new Race(
-                RaceId.of(entity.getId()),
-                entity.getName()
-        );
-    }
-
 }

@@ -1,6 +1,8 @@
 package com.kos.character.origin.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,9 +12,10 @@ public class OriginId {
 
     private final int value;
 
-    public OriginId(int value) { this.value = value; }
+    private OriginId(int value) { this.value = value; }
 
-    public static OriginId of(int value) { return new OriginId(value); }
+    @JsonCreator
+    public static OriginId of(@JsonProperty("value") int value) { return new OriginId(value); }
 
     public int asInt() { return value; }
 
