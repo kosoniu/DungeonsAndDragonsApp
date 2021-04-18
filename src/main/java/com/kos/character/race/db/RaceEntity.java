@@ -1,7 +1,5 @@
 package com.kos.character.race.db;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,11 +8,9 @@ public class RaceEntity {
 
     @Id
     @GeneratedValue
-    @NotNull
     private int id;
 
-    @Column
-    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
     public int getId() {

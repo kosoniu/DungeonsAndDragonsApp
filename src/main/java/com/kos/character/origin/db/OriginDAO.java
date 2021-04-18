@@ -48,13 +48,14 @@ public class OriginDAO implements OriginRepository {
     public Origin add(Origin origin) {
         OriginEntity originEntity = new OriginEntity();
         originEntity.setName(origin.getName());
+        originEntity.setDescription(origin.getDescription());
         originEntity.setProficiencies(origin.getProficiencies().stream().map(entityMapper::mapToEntity).collect(Collectors.toSet()));
         return ModelMapper.mapToModel(originRepository.save(originEntity));
     }
 
     @Override
-    public void delete(Origin origin) {
-        originRepository.delete(entityMapper.mapToEntity(origin));
+    public void delete(Integer id) {
+        originRepository.deleteById(id);
     }
 
     private Origin getFromDatabase(int heroId) {

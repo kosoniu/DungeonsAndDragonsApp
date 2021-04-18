@@ -28,7 +28,7 @@ public class OriginController {
     @PutMapping
     public Origin update(@RequestBody Origin origin) { return originRepository.update(origin); }
 
-    @DeleteMapping
-    public void delete(@RequestBody Origin origin) { originRepository.delete(origin); }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) { originRepository.delete(id); }
 
 }

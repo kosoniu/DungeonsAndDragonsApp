@@ -13,6 +13,6 @@ public interface OriginRepository {
 
     Origin add(Origin origin);
 
-    void delete(Origin origin);
+    void delete(Integer id);
 
 }
