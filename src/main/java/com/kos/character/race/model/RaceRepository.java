@@ -13,6 +13,6 @@ public interface RaceRepository {
 
     Race update(Race race);
 
-    void delete(Race race);
+    void delete(Integer id);
 
 }

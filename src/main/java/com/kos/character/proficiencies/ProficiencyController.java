@@ -25,4 +25,9 @@ public class ProficiencyController {
     @PostMapping
     public Proficiency add(@RequestBody Proficiency proficiency) { return proficiencyRepository.add(proficiency); }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        proficiencyRepository.delete(id);
+    }
+
 }

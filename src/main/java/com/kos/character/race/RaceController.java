@@ -28,6 +28,6 @@ public class RaceController {
     @PutMapping
     public Race update(@RequestBody Race race) { return raceRepository.update(race); }
 
-    @DeleteMapping
-    public void delete(@RequestBody Race race) { raceRepository.delete(race);}
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) { raceRepository.delete(id);}
 }

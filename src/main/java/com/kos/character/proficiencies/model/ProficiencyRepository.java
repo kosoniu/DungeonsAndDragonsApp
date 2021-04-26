@@ -13,6 +13,6 @@ public interface ProficiencyRepository {
 
     Proficiency update(Proficiency proficiency);
 
-    void delete(Proficiency proficiency);
+    void delete(Integer id);
 
 }

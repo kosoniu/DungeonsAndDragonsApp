@@ -49,8 +49,8 @@ public class RaceDAO implements RaceRepository {
     }
 
     @Override
-    public void delete(Race race) {
-        raceRepository.delete(entityMapper.mapToEntity(race));
+    public void delete(Integer id) {
+        raceRepository.deleteById(id);
     }
 
     private Race getFromDatabase(int heroId) {

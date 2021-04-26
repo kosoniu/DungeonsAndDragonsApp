@@ -50,8 +50,8 @@ public class ProficiencyDAO implements ProficiencyRepository {
     }
 
     @Override
-    public void delete(Proficiency proficiency) {
-
+    public void delete(Integer id) {
+        proficiencyRepository.deleteById(id);
     }
 
     private Proficiency getFromDatabase(int proficiencyId) {
