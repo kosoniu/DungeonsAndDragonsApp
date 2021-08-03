@@ -1,10 +1,13 @@
 package com.kos.character.race.db;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "race_feature")
-public class RaceFeatureEntity {
+public class RaceFeatureEntity implements Serializable {
+
+    private static final long serialVersionUID = 3928771155121404725L;
 
     @Id
     @Column(name = "race_feature_id")
@@ -16,10 +19,6 @@ public class RaceFeatureEntity {
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "race_id", nullable = false)
-    private RaceEntity race;
 
     public int getId() {
         return id;
@@ -45,11 +44,4 @@ public class RaceFeatureEntity {
         this.description = description;
     }
 
-    public RaceEntity getRace() {
-        return race;
-    }
-
-    public void setRace(RaceEntity race) {
-        this.race = race;
-    }
 }

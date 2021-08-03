@@ -1,11 +1,14 @@
 package com.kos.character.race.db;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "race")
-public class RaceEntity {
+public class RaceEntity implements Serializable {
+
+    private static final long serialVersionUID = -7732372564213352972L;
 
     @Id
     @Column(name = "race_id")
@@ -15,8 +18,16 @@ public class RaceEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "race")
-    private Set<RaceFeatureEntity> raceFeatureEntities;
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name="race_id", nullable=false)
+    private Set<RaceFeatureEntity> raceFeatures;
 
     public int getId() {
         return id;
@@ -34,11 +45,19 @@ public class RaceEntity {
         this.name = name;
     }
 
-    public Set<RaceFeatureEntity> getRaceFeatureEntities() {
-        return raceFeatureEntities;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRaceFeatureEntities(Set<RaceFeatureEntity> raceFeatureEntities) {
-        this.raceFeatureEntities = raceFeatureEntities;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<RaceFeatureEntity> getRaceFeatures() {
+        return raceFeatures;
+    }
+
+    public void setRaceFeatures(Set<RaceFeatureEntity> raceFeatureEntities) {
+        this.raceFeatures = raceFeatureEntities;
     }
 }

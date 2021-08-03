@@ -8,19 +8,23 @@ import com.kos.character.utils.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
 public class RaceDAO implements RaceRepository {
 
     private final RaceJpaRepository raceRepository;
+    private final RaceFeatureJpaRepository raceFeatureRepository;
     private final EntityMapper entityMapper;
 
     @Autowired
-    public RaceDAO(RaceJpaRepository raceRepository, EntityMapper entityMapper) {
+    public RaceDAO(RaceJpaRepository raceRepository, RaceFeatureJpaRepository raceFeatureRepository, EntityMapper entityMapper) {
         this.raceRepository = raceRepository;
+        this.raceFeatureRepository = raceFeatureRepository;
         this.entityMapper = entityMapper;
     }
 
@@ -40,6 +44,12 @@ public class RaceDAO implements RaceRepository {
     public Race add(Race race) {
         RaceEntity raceEntity = new RaceEntity();
         raceEntity.setName(race.getName());
+        raceEntity.setDescription(race.getDescription());
+
+        Set<RaceFeatureEntity> raceFeatures = new HashSet<>();
+        race.getRaceFeatures().forEach(raceFeature -> raceFeatures.add(entityMapper.mapToEntity(raceFeature)));
+
+        raceEntity.setRaceFeatures(raceFeatures);
         return ModelMapper.mapToModel(raceRepository.save(raceEntity));
     }
 
@@ -56,8 +66,6 @@ public class RaceDAO implements RaceRepository {
     private Race getFromDatabase(int heroId) {
         return raceRepository.findById(heroId).map(ModelMapper::mapToModel).orElse(null);
     }
-
-
 
 
 }
