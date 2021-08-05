@@ -1,5 +1,8 @@
 package com.kos.character.utils;
 
+import com.kos.character.clazz.db.ClassEntity;
+import com.kos.character.clazz.model.Class;
+import com.kos.character.clazz.model.ClassId;
 import com.kos.character.hero.db.HeroEntity;
 import com.kos.character.hero.model.Hero;
 import com.kos.character.hero.model.HeroId;
@@ -60,6 +63,18 @@ public class ModelMapper {
                 RaceFeatureId.of(entity.getId()),
                 entity.getName(),
                 entity.getDescription()
+        );
+    }
+
+    public static Class mapToModel(ClassEntity entity) {
+        return new Class(
+                ClassId.of(entity.getId()),
+                entity.getName(),
+                entity.getDescription(),
+                entity.getHitDice(),
+                entity.getHealthPoints(),
+                entity.getHealthPointsOnHigherLevels(),
+                entity.getProficiencies().stream().map(ModelMapper::mapToModel).collect(Collectors.toList())
         );
     }
 

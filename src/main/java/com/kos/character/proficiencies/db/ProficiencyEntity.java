@@ -1,13 +1,7 @@
 package com.kos.character.proficiencies.db;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.kos.character.origin.db.OriginEntity;
 import com.kos.character.proficiencies.model.ProficiencyType;
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "proficiency")

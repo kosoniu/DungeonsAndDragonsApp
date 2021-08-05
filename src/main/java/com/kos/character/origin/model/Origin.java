@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kos.character.proficiencies.model.Proficiency;
 
 import java.util.List;
-import java.util.Set;
 
 public class Origin {
 

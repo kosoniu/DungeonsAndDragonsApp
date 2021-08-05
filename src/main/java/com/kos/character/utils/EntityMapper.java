@@ -1,5 +1,8 @@
 package com.kos.character.utils;
 
+import com.kos.character.clazz.db.ClassEntity;
+import com.kos.character.clazz.db.ClassJpaRepository;
+import com.kos.character.clazz.model.Class;
 import com.kos.character.hero.db.HeroEntity;
 import com.kos.character.hero.db.HeroJpaRepository;
 import com.kos.character.hero.model.Hero;
@@ -41,6 +44,9 @@ public class EntityMapper {
     @Autowired
     private RaceFeatureJpaRepository raceFeatureRepository;
 
+    @Autowired
+    private ClassJpaRepository classRepository;
+
     public OriginEntity mapToEntity(Origin origin) {
         OriginEntity originEntity = originRepository.findById(origin.getOriginId().asInt()).orElseGet(OriginEntity::new);
         originEntity.setName(origin.getName());
@@ -77,14 +83,6 @@ public class EntityMapper {
         return raceFeatureEntity;
     }
 
-    public RaceFeatureEntity mapToEntity(RaceFeature raceFeature, RaceId raceId) {
-        RaceFeatureEntity raceFeatureEntity = raceFeatureRepository.findById(raceFeature.getRaceFeatureId().asInt()).orElseGet(RaceFeatureEntity::new);
-
-        raceFeatureEntity.setName(raceFeature.getName());
-        raceFeatureEntity.setDescription(raceFeature.getDescription());
-        return raceFeatureEntity;
-    }
-
     public HeroEntity mapToEntity(Hero hero) {
         HeroEntity heroEntity = heroRepository.findById(hero.getHeroId().asInt()).orElseGet(HeroEntity::new);
         RaceEntity raceEntity = raceRepository.findById(hero.getRace().getRaceId().asInt()).orElseGet(RaceEntity::new);
@@ -94,4 +92,15 @@ public class EntityMapper {
         return heroEntity;
     }
 
+    public ClassEntity mapToEntity(Class clazz) {
+        ClassEntity classEntity = classRepository.findById(clazz.getClassId().asInt()).orElseGet(ClassEntity::new);
+        classEntity.setId(clazz.getClassId().asInt());
+        classEntity.setName(clazz.getName());
+        classEntity.setDescription(clazz.getDescription());
+        classEntity.setHitDice(clazz.getHitDice());
+        classEntity.setHealthPoints(clazz.getHealthPoints());
+        classEntity.setHealthPointsOnHigherLevels(clazz.getHitDiceOnHigherLevels());
+        classEntity.setProficiencies(clazz.getProficiencies().stream().map(this::mapToEntity).collect(Collectors.toSet()));
+        return classEntity;
+    }
 }
