@@ -18,10 +18,10 @@ import com.kos.character.race.db.RaceFeatureJpaRepository;
 import com.kos.character.race.db.RaceJpaRepository;
 import com.kos.character.race.model.Race;
 import com.kos.character.race.model.RaceFeature;
-import com.kos.character.race.model.RaceId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -84,11 +84,17 @@ public class EntityMapper {
     }
 
     public HeroEntity mapToEntity(Hero hero) {
-        HeroEntity heroEntity = heroRepository.findById(hero.getHeroId().asInt()).orElseGet(HeroEntity::new);
-        RaceEntity raceEntity = raceRepository.findById(hero.getRace().getRaceId().asInt()).orElseGet(RaceEntity::new);
+        HeroEntity heroEntity = heroRepository.findById(hero.getHeroId().asInt()).orElseThrow(EntityNotFoundException::new);
+        RaceEntity raceEntity = raceRepository.findById(hero.getRace().getRaceId().asInt()).orElseThrow(EntityNotFoundException::new);
+        ClassEntity classEntity = classRepository.findById(hero.getClazz().getClassId().asInt()).orElseThrow(EntityNotFoundException::new);
+        OriginEntity originEntity = originRepository.findById(hero.getOrigin().getOriginId().asInt()).orElseThrow(EntityNotFoundException::new);
+
         heroEntity.setLevel(hero.getLevel());
         heroEntity.setName(hero.getName());
         heroEntity.setRace(raceEntity);
+        heroEntity.setClazz(classEntity);
+        heroEntity.setOrigin(originEntity);
+
         return heroEntity;
     }
 
@@ -99,7 +105,7 @@ public class EntityMapper {
         classEntity.setDescription(clazz.getDescription());
         classEntity.setHitDice(clazz.getHitDice());
         classEntity.setHealthPoints(clazz.getHealthPoints());
-        classEntity.setHealthPointsOnHigherLevels(clazz.getHitDiceOnHigherLevels());
+        classEntity.setHealthPointsOnHigherLevels(clazz.getHealthPointsOnHigherLevels());
         classEntity.setProficiencies(clazz.getProficiencies().stream().map(this::mapToEntity).collect(Collectors.toSet()));
         return classEntity;
     }

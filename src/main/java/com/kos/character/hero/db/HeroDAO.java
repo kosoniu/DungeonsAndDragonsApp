@@ -15,9 +15,8 @@ import java.util.stream.Collectors;
 @Repository
 public class HeroDAO implements HeroRepository {
 
-    private HeroJpaRepository heroRepository;
-    private EntityMapper entityMapper;
-
+    private final HeroJpaRepository heroRepository;
+    private final EntityMapper entityMapper;
 
     @Autowired
     public HeroDAO(HeroJpaRepository heroRepository, EntityMapper entityMapper) {

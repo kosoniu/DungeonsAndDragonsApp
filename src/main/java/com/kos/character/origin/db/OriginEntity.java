@@ -1,11 +1,8 @@
 package com.kos.character.origin.db;
 
 import com.kos.character.proficiencies.db.ProficiencyEntity;
-import com.sun.istack.NotNull;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +10,7 @@ import java.util.Set;
 public class OriginEntity {
 
     @Id
-    @Column(name = "proficiency_id")
+    @Column(name = "origin_id")
     @GeneratedValue
     private Integer id;
 

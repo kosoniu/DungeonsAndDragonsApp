@@ -54,7 +54,9 @@ public class ModelMapper {
                 HeroId.of(entity.getId()),
                 entity.getName(),
                 entity.getLevel(),
-                ModelMapper.mapToModel(entity.getRace())
+                ModelMapper.mapToModel(entity.getRace()),
+                ModelMapper.mapToModel(entity.getOrigin()),
+                ModelMapper.mapToModel(entity.getClazz())
         );
     }
 

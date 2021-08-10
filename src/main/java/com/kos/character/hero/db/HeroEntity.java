@@ -1,5 +1,7 @@
 package com.kos.character.hero.db;
 
+import com.kos.character.clazz.db.ClassEntity;
+import com.kos.character.origin.db.OriginEntity;
 import com.kos.character.race.db.RaceEntity;
 import com.sun.istack.NotNull;
 
@@ -21,7 +23,16 @@ public class HeroEntity {
     private int level;
 
     @ManyToOne
+    @JoinColumn(name = "race_id", nullable = false)
     private RaceEntity race;
+
+    @ManyToOne
+    @JoinColumn(name = "class_id", nullable = false)
+    private ClassEntity clazz;
+
+    @ManyToOne
+    @JoinColumn(name = "origin_id", nullable = false)
+    private OriginEntity origin;
 
     public int getId() {
         return id;
@@ -53,5 +64,21 @@ public class HeroEntity {
 
     public void setRace(RaceEntity race) {
         this.race = race;
+    }
+
+    public ClassEntity getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(ClassEntity clazz) {
+        this.clazz = clazz;
+    }
+
+    public OriginEntity getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(OriginEntity origin) {
+        this.origin = origin;
     }
 }

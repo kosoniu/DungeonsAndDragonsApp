@@ -49,8 +49,12 @@ public class ClassDAO implements ClassRepository {
     @Override
     public Class add(Class clazz) {
         ClassEntity classEntity = new ClassEntity();
-        classEntity.setId(clazz.getClassId().asInt());
         classEntity.setName(clazz.getName());
+        classEntity.setDescription(clazz.getDescription());
+        classEntity.setHitDice(clazz.getHitDice());
+        classEntity.setHealthPoints(clazz.getHealthPoints());
+        classEntity.setHealthPointsOnHigherLevels(clazz.getHealthPointsOnHigherLevels());
+        classEntity.setProficiencies(clazz.getProficiencies().stream().map(entityMapper::mapToEntity).collect(Collectors.toSet()));
 
         return ModelMapper.mapToModel(classRepository.save(classEntity));
     }

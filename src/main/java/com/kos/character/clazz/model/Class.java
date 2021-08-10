@@ -12,7 +12,7 @@ public class Class {
     private final String description;
     private final Integer hitDice;
     private final Integer healthPoints;
-    private final Integer hitDiceOnHigherLevels;
+    private final Integer healthPointsOnHigherLevels;
     private final List<Proficiency> proficiencies;
 
     public Class(
@@ -21,14 +21,14 @@ public class Class {
             @JsonProperty("description") String description,
             @JsonProperty("hitDice") Integer hitDice,
             @JsonProperty("healthPoints") Integer healthPoints,
-            @JsonProperty("hitDiceOnHigherLevels") Integer hitDiceOnHigherLevels,
+            @JsonProperty("healthPointsOnHigherLevels") Integer healthPointsOnHigherLevels,
             @JsonProperty("proficiencies") List<Proficiency> proficiencies) {
         this.classId = classId;
         this.name = name;
         this.description = description;
         this.hitDice = hitDice;
         this.healthPoints = healthPoints;
-        this.hitDiceOnHigherLevels = hitDiceOnHigherLevels;
+        this.healthPointsOnHigherLevels = healthPointsOnHigherLevels;
         this.proficiencies = proficiencies;
     }
 
@@ -52,8 +52,8 @@ public class Class {
         return healthPoints;
     }
 
-    public Integer getHitDiceOnHigherLevels() {
-        return hitDiceOnHigherLevels;
+    public Integer getHealthPointsOnHigherLevels() {
+        return healthPointsOnHigherLevels;
     }
 
     public List<Proficiency> getProficiencies() {
