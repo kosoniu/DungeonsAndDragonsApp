@@ -1,15 +1,23 @@
 package com.kos.character.race.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Set;
 
 public class Race {
 
-    private RaceId raceId;
-    private String name;
-    private String description;
-    private Set<RaceFeature> raceFeatures;
+    private final RaceId raceId;
+    private final String name;
+    private final String description;
+    private final Set<RaceFeature> raceFeatures;
 
-    public Race(RaceId raceId, String name, String description, Set<RaceFeature> raceFeatures) {
+    @JsonCreator
+    public Race(
+            @JsonProperty("raceId") RaceId raceId,
+            @JsonProperty("name") String name,
+            @JsonProperty("description") String description,
+            @JsonProperty("raceFeatures") Set<RaceFeature> raceFeatures) {
         this.raceId = raceId;
         this.name = name;
         this.description = description;
@@ -24,27 +32,12 @@ public class Race {
         return name;
     }
 
-    public void setRaceId(RaceId raceId) {
-        this.raceId = raceId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Set<RaceFeature> getRaceFeatures() {
         return raceFeatures;
     }
 
-    public void setRaceFeatures(Set<RaceFeature> raceFeatures) {
-        this.raceFeatures = raceFeatures;
-    }
 }

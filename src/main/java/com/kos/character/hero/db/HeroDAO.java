@@ -44,14 +44,19 @@ public class HeroDAO implements HeroRepository {
     @Override
     public Hero add(Hero hero) {
         HeroEntity heroEntity = new HeroEntity();
+
         heroEntity.setName(hero.getName());
         heroEntity.setLevel(hero.getLevel());
+        heroEntity.setOrigin(entityMapper.mapToEntity(hero.getOrigin()));
+        heroEntity.setClazz(entityMapper.mapToEntity(hero.getClazz()));
+        heroEntity.setRace(entityMapper.mapToEntity(hero.getRace()));
+
         return ModelMapper.mapToModel(heroRepository.save(heroEntity));
     }
 
     @Override
-    public void delete(Hero hero) {
-        heroRepository.delete(entityMapper.mapToEntity(hero));
+    public void delete(Integer id) {
+        heroRepository.deleteById(id);
     }
 
     private Hero getFromDatabase(int heroId) {

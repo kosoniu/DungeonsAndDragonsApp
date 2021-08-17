@@ -34,9 +34,9 @@ public class HeroController {
         return heroRepository.update(hero);
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody Hero hero) {
-        heroRepository.delete(hero);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        heroRepository.delete(id);
     }
 
 }

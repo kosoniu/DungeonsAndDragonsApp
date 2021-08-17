@@ -1,19 +1,25 @@
 package com.kos.character.race.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class RaceId {
+public class RaceId implements Serializable {
+
+    private static final long serialVersionUID = -3197585948538404057L;
 
     private final int value;
 
-    public RaceId(int value) {
+    private RaceId(int value) {
         this.value = value;
     }
 
-    public static RaceId of(int value) { return new RaceId(value); }
+    @JsonCreator
+    public static RaceId of(@JsonProperty("value") int value) { return new RaceId(value); }
 
     public int asInt() { return value; }
 

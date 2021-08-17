@@ -70,7 +70,7 @@ public class EntityMapper {
         Set<RaceFeatureEntity> raceFeatureEntities = new HashSet<>();
 
         race.getRaceFeatures().forEach(raceFeature -> raceFeatureEntities.add(mapToEntity(raceFeature)));
-        raceEntity.setRaceFeatures(raceFeatureEntities);
+        raceEntity.getRaceFeatures().addAll(raceFeatureEntities);
 
         return raceEntity;
     }

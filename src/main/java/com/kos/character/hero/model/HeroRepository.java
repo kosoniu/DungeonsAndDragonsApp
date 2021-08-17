@@ -13,6 +13,6 @@ public interface HeroRepository {
 
     Hero add(Hero hero);
 
-    void delete(Hero hero);
+    void delete(Integer id);
 
 }
